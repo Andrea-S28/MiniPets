@@ -1,7 +1,9 @@
 package gvsu.cis357.finalproject.minipets.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,33 +31,76 @@ fun MainPage(modifier: Modifier,
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Text(
+        Row(
             modifier = Modifier
-                .width(150.dp)
-                .height(70.dp),
-            text = "Main Page")
-        Button(
-            modifier = Modifier
-                .width(150.dp)
-                .height(70.dp),
-            onClick = { onInfo() }) {
-            Text("Info")
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ){
+            Button(onClick = onInfo) { Text("Info") }
+            Button(onClick = onProfile) { Text("Profile") }
+            Button(onClick = onStore) { Text("Store") }
         }
-        Button(
+        Box(
             modifier = Modifier
-                .width(150.dp)
-                .height(70.dp),
-            onClick = { onProfile() }) {
-            Text("Profile")
+                .fillMaxWidth()
+                .height(300.dp),
+            contentAlignment = Alignment.Center
+        ){
+            Text("minipet here")
         }
-        Button(
+        Row(
             modifier = Modifier
-                .width(150.dp)
-                .height(70.dp),
-            onClick = { onStore() }) {
-            Text("Store")
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text("Happiness: 75")
+            Text("Energy: 50")
+            Text("Points: 120")
         }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ){
+            Button(onClick = {/* Walk */}){
+                Text("Walk")
+            }
+            Button(onClick = {/* Screen Break */}){
+                Text("Nap Time")
+            }
+            Button(onClick = {/* Play */}){
+                Text("Play")
+            }
+
+        }
+//        Text(
+//            modifier = Modifier
+//                .width(150.dp)
+//                .height(70.dp),
+//            text = "Main Page")
+//        Button(
+//            modifier = Modifier
+//                .width(150.dp)
+//                .height(70.dp),
+//            onClick = { onInfo() }) {
+//            Text("Info")
+//        }
+//        Button(
+//            modifier = Modifier
+//                .width(150.dp)
+//                .height(70.dp),
+//            onClick = { onProfile() }) {
+//            Text("Profile")
+//        }
+//        Button(
+//            modifier = Modifier
+//                .width(150.dp)
+//                .height(70.dp),
+//            onClick = { onStore() }) {
+//            Text("Store")
+//        }
     }
 }
