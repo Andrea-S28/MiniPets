@@ -16,6 +16,28 @@ class MiniPetsViewModel(): ViewModel(){
     val petName = MutableStateFlow("Tui")
     val coins = MutableStateFlow(100)
     val categories = listOf("Furniture", "Hats", "Pets")
+
+    val pets = listOf<ShopItem>(
+        ShopItem("Pet", "\uD83D\uDC36", "Doggo", "100"),
+        ShopItem("Pet", "\uD83D\uDC30", "Bunny", "100"),
+        ShopItem("Pet", "\uD83D\uDC39", "Mouse", "100"),
+    )
+
+    val furniture = listOf<ShopItem>(
+        ShopItem("Furniture", "\uD83D\uDECF\uFE0F", "Bed", "75"),
+        ShopItem("Furniture", "\uD83D\uDECB\uFE0F", "Couch", "50"),
+        ShopItem("Furniture", "\uD83E\uDE9E", "Mirror", "50"),
+        ShopItem("Furniture", "\uD83E\uDE91", "Chair", "25"),
+        )
+
+    val hats = listOf<ShopItem>(
+        ShopItem("Hat", "⛑\uFE0F", "Red Helmet", "25"),
+        ShopItem("Hat", "\uD83C\uDF93", "Graduation Cap", "25"),
+        ShopItem("Hat", "\uD83C\uDFA9", "Top Hat", "25"),
+        ShopItem("Hat", "\uD83D\uDC52", "Sun Hat", "25"),
+        ShopItem("Hat", "\uD83E\uDDE2", "Blue Cap", "25"),
+
+        )
 }
 
 
