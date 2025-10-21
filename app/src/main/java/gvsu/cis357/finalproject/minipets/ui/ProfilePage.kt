@@ -22,12 +22,10 @@ import gvsu.cis357.finalproject.minipets.MiniPetsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Unit) {
-    var userName by remember { mutableStateOf("Pet Lover") }
-    var petDisplayName by remember { mutableStateOf("Fluffy") }
     var showEditUserDialog by remember { mutableStateOf(false) }
     var showEditPetDialog by remember { mutableStateOf(false) }
-    var tempUserName by remember { mutableStateOf(userName) }
-    var tempPetName by remember { mutableStateOf(petDisplayName) }
+    var tempUserName by remember { mutableStateOf(viewModel.userName) }
+    var tempPetName by remember { mutableStateOf(viewModel.petDisplayName) }
 
     Scaffold(
         topBar = {
@@ -118,14 +116,14 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
-                                text = userName,
+                                text = viewModel.userName,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium
                             )
                         }
                         IconButton(
                             onClick = { 
-                                tempUserName = userName
+                                tempUserName = viewModel.userName
                                 showEditUserDialog = true 
                             }
                         ) {
@@ -151,14 +149,14 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
-                                text = petDisplayName,
+                                text = viewModel.petDisplayName,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium
                             )
                         }
                         IconButton(
                             onClick = { 
-                                tempPetName = petDisplayName
+                                tempPetName = viewModel.petDisplayName
                                 showEditPetDialog = true 
                             }
                         ) {
@@ -199,7 +197,7 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
             confirmButton = {
                 TextButton(
                     onClick = {
-                        userName = tempUserName
+                        viewModel.updateUserName(tempUserName)
                         showEditUserDialog = false
                     }
                 ) {
@@ -230,7 +228,7 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
             confirmButton = {
                 TextButton(
                     onClick = {
-                        petDisplayName = tempPetName
+                        viewModel.updatePetDisplayName(tempPetName)
                         showEditPetDialog = false
                     }
                 ) {

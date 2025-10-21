@@ -1,11 +1,36 @@
 package gvsu.cis357.finalproject.minipets
 
+<<<<<<< HEAD
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+=======
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+>>>>>>> origin/main
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MiniPetsViewModel(): ViewModel(){
+<<<<<<< HEAD
+    
+    // User profile data
+    var userName by mutableStateOf("Pet Lover")
+        private set
+    
+    var petDisplayName by mutableStateOf("Fluffarita")
+        private set
+    
+    // Functions to update the data
+    fun updateUserName(newName: String) {
+        userName = newName
+    }
+    
+    fun updatePetDisplayName(newName: String) {
+        petDisplayName = newName
+    }
+}
+=======
     val BackgroundColor = Color(0xff208d6d)
     val MainColor = Color(0xff2ec99c)
     val TitleSize = 50.sp
@@ -47,3 +72,4 @@ data class ShopItem(
     val description: String,
     val price: String
 )
+>>>>>>> origin/main

@@ -6,8 +6,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
-//import androidx.compose.material.icons.filled.Pets
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,14 +43,14 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // App Icon
-//            Icon(
-//                imageVector = Icons.Default.Pets,
-//                contentDescription = "MiniPets Logo",
-//                modifier = Modifier
-//                    .size(80.dp)
-//                    .padding(bottom = 16.dp),
-//                tint = MaterialTheme.colorScheme.primary
-//            )
+            Icon(
+                imageVector = Icons.Default.Favorite,
+                contentDescription = "MiniPets Logo",
+                modifier = Modifier
+                    .size(80.dp)
+                    .padding(bottom = 16.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
 
             // App Name
             Text(
@@ -81,11 +82,11 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(bottom = 8.dp)
                     ) {
-//                        Icon(
-//                            Icons.Default.Pets,
-//                            contentDescription = null,
-//                            modifier = Modifier.padding(end = 8.dp)
-//                        )
+                        Icon(
+                            Icons.Default.Favorite,
+                            contentDescription = null,
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
                         Text(
                             text = "Our Mission",
                             fontSize = 18.sp,
@@ -114,12 +115,12 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(bottom = 8.dp)
                     ) {
-//                        Icon(
-//                            Icons.Default.MonetizationOn,
-//                            contentDescription = null,
-//                            modifier = Modifier.padding(end = 8.dp),
-//                            tint = MaterialTheme.colorScheme.primary
-//                        )
+                        Icon(
+                            Icons.Default.Star,
+                            contentDescription = null,
+                            modifier = Modifier.padding(end = 8.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
                         Text(
                             text = "Earning Coins",
                             fontSize = 18.sp,
