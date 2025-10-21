@@ -1,6 +1,12 @@
 package gvsu.cis357.finalproject.minipets
 
 <<<<<<< HEAD
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+=======
+<<<<<<< HEAD
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -8,10 +14,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 >>>>>>> origin/main
+>>>>>>> origin/main
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MiniPetsViewModel(): ViewModel(){
+<<<<<<< HEAD
+
+
+    //MAIN PAGE LOGIC
+    var happiness by mutableStateOf(75)
+    var energy by mutableStateOf(50)
+    var points by mutableStateOf(120)
+
+    fun walk(){
+        happiness = (happiness +10).coerceAtMost(100)
+        energy = (energy - 5).coerceAtLeast(0)
+        points += 5
+    }
+
+    fun screenBreak() {
+        energy = (energy + 10).coerceAtMost(100)
+        points += 5
+    }
+
+    fun play() {
+        happiness = (happiness + 5).coerceAtMost(100)
+        energy = (energy - 5).coerceAtLeast(0)
+        points += 5
+    }
+
+    //STORE LOGIC
+    val petName = MutableStateFlow("Tui")
+    val coins = MutableStateFlow(100)
+
+}
+=======
 <<<<<<< HEAD
     
     // User profile data
@@ -72,4 +110,5 @@ data class ShopItem(
     val description: String,
     val price: String
 )
+>>>>>>> origin/main
 >>>>>>> origin/main
