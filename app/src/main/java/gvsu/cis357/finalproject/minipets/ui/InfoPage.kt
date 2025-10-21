@@ -6,8 +6,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Pets
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,7 +44,7 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
         ) {
             // App Icon
             Icon(
-                imageVector = Icons.Default.Pets,
+                imageVector = Icons.Default.Favorite,
                 contentDescription = "MiniPets Logo",
                 modifier = Modifier
                     .size(80.dp)
@@ -82,7 +83,7 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
                         modifier = Modifier.padding(bottom = 8.dp)
                     ) {
                         Icon(
-                            Icons.Default.Pets,
+                            Icons.Default.Favorite,
                             contentDescription = null,
                             modifier = Modifier.padding(end = 8.dp)
                         )
@@ -115,7 +116,7 @@ fun InfoPage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> Uni
                         modifier = Modifier.padding(bottom = 8.dp)
                     ) {
                         Icon(
-                            Icons.Default.MonetizationOn,
+                            Icons.Default.Star,
                             contentDescription = null,
                             modifier = Modifier.padding(end = 8.dp),
                             tint = MaterialTheme.colorScheme.primary
