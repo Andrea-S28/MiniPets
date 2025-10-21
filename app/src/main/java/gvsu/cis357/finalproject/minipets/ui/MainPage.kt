@@ -16,11 +16,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import gvsu.cis357.finalproject.minipets.R
 import gvsu.cis357.finalproject.minipets.MiniPetsViewModel
 import org.intellij.lang.annotations.JdkConstants
@@ -33,10 +39,17 @@ fun MainPage(modifier: Modifier,
              onProfile:()-> Unit,
              onStore:()-> Unit
 ) {
+    val BackgroundColor = Color(0xff208d6d)
+    val MainColor = Color(0xff2ec99c)
+    val TitleSize = 50.sp
+    val HeaderSize = 30.sp
+    val BodySize = 20.sp
+    val petName by remember { mutableStateOf(viewModel.petName) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFECEFF1))
+            .background(BackgroundColor)
     ) {
         Column(
             modifier = Modifier
@@ -47,6 +60,36 @@ fun MainPage(modifier: Modifier,
         ) {
             Row(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+                    .background(MainColor),
+//              contentAlignment = Alignment.Center
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    fontSize = TitleSize,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    text = "MiniPets"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(MainColor),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    fontSize = HeaderSize,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    text = "\uD83D\uDC31 ${petName.collectAsState().value}")
+            }
+            Row(
+                modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -54,6 +97,7 @@ fun MainPage(modifier: Modifier,
                 Button(onClick = onProfile) { Text("Profile") }
                 Button(onClick = onStore) { Text("Store") }
             }
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class MiniPetsViewModel(): ViewModel(){
 
@@ -31,6 +32,8 @@ class MiniPetsViewModel(): ViewModel(){
         points += 5
     }
 
-
+    //STORE LOGIC
+    val petName = MutableStateFlow("Tui")
+    val coins = MutableStateFlow(100)
 
 }
