@@ -19,8 +19,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,6 +48,8 @@ fun StorePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack:()-> Unit
     val coins by remember { mutableStateOf(viewModel.coins) }
 
     val categories = viewModel.categories
+    val shopItems by viewModel.selectedCategoryItems.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -94,7 +99,6 @@ fun StorePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack:()-> Unit
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-//                .background(MainColor),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -107,29 +111,24 @@ fun StorePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack:()-> Unit
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(.85f),
-//            contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(18) { category ->
-                Box(
-                    modifier = Modifier
-                        .height(120.dp)
-                        .width(120.dp)
-                        .background(viewModel.MainColor)
-                        .clickable { /* Handle click */ },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("$category")
-                }
+            items(shopItems, key = { it.id }) { item ->
+                ShopItemCard(item, viewModel)
             }
         }
         Button(
             modifier = Modifier
                 .width(150.dp)
                 .height(70.dp),
-            onClick = { onBack() }) {
-            Text("Back")
+            onClick = { onBack() },
+            colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor)
+        ) {
+            Text("Back",
+                color = Color.White,
+                fontSize = viewModel.BodySize,
+                fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -141,7 +140,7 @@ fun CategoryCard(name: String, viewModel: MiniPetsViewModel) {
             .height(50.dp)
             .widthIn(min = 100.dp)
             .background(viewModel.MainColor)
-            .clickable { /* Handle click */ },
+            .clickable { viewModel.selectShopCategory(name) },
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -156,20 +155,18 @@ fun CategoryCard(name: String, viewModel: MiniPetsViewModel) {
 
 @Composable
 fun ShopItemCard(item: ShopItem, viewModel: MiniPetsViewModel) {
-    Box(
+    Column(
         modifier = Modifier
-            .height(120.dp)
-            .width(120.dp)
+            .height(130.dp)
+            .width(130.dp)
             .background(viewModel.MainColor)
+            .padding(10.dp)
             .clickable { /* Handle click */ },
-        contentAlignment = Alignment.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = item.name,
-            color = Color.White,
-            fontSize = viewModel.BodySize,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
+        Text(item.name, fontSize = viewModel.TitleSize, fontWeight = FontWeight.Bold, color = Color.White)
+        Text(item.description, fontSize = viewModel.BodySize, fontWeight = FontWeight.Bold, color = Color.White)
+        Text("\uD83D\uDCB2 ${item.price}", fontSize = viewModel.BodySize, fontWeight = FontWeight.Bold, color = Color.White)
     }
+
 }
