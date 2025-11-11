@@ -105,7 +105,7 @@ fun MainPage(modifier: Modifier,
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.pixelpet),
+                    painter = painterResource(id = R.drawable.cat),
                     contentDescription = "Beginner pixel",
                     modifier = Modifier.size(200.dp)
                 )
@@ -117,7 +117,7 @@ fun MainPage(modifier: Modifier,
             ) {
                 Text("Happiness: 75")
                 Text("Energy: 50")
-                Text("Points: 120")
+                Text("Coins: 120")
             }
             Row(
                 modifier = Modifier
