@@ -1,15 +1,21 @@
 package gvsu.cis357.finalproject.minipets.ui
 
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,13 +29,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gvsu.cis357.finalproject.minipets.R
 import gvsu.cis357.finalproject.minipets.MiniPetsViewModel
-import org.intellij.lang.annotations.JdkConstants
 
 
 @Composable
@@ -101,24 +112,44 @@ fun MainPage(modifier: Modifier,
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp),
+                    .background(Color.Red.copy(alpha = 0.2f))
+                    .height(300.dp)
+                    .pointerInput(Unit) {
+                        detectTapGestures { offset ->
+                            val density = this@pointerInput
+                            val xDp = with(density) { offset.x.toDp() }
+                            val yDp = with(density) { offset.y.toDp() }
+                            println("Tapped at xDp=$xDp, yDp=$yDp")
+
+                        }
+
+                    },
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.cat),
+                    painter = painterResource(id = R.drawable.baseroom3),
                     contentDescription = "Beginner pixel",
-                    modifier = Modifier.size(200.dp)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer(
+                            scaleX = 1.5f,
+                            scaleY = 1.5f
+                        )
+                        .offset(x = 0.dp, y = 20.dp)
                 )
+                Cat(viewModel = viewModel)
+
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text("Happiness: 75")
-                Text("Energy: 50")
-                Text("Coins: 120")
-            }
+            Spacer(modifier = Modifier.height(20.dp))
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                horizontalArrangement = Arrangement.Center
+//            ) {
+//                Text("Happiness: 75")
+//                Text("Energy: 50")
+//                Text("Coins: 120")
+//            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -165,5 +196,19 @@ fun MainPage(modifier: Modifier,
     }
 }
 
-//@Composable
-//fun
+@Composable
+fun Cat(viewModel: MiniPetsViewModel) {
+    val position by viewModel.catPosition.collectAsState()
+    val state by viewModel.catState.collectAsState()
+
+    val catX by animateDpAsState(targetValue = position.x)
+    val catY by animateDpAsState(targetValue = position.y)
+
+    Image(
+        painter = painterResource(id = R.drawable.cat3),
+        contentDescription = "Pixel cat",
+        modifier = Modifier
+            .size(64.dp)
+            .offset(x = catX, y = catY)
+    )
+}
