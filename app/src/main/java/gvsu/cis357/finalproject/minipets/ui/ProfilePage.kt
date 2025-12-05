@@ -25,7 +25,8 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
     var showEditUserDialog by remember { mutableStateOf(false) }
     var showEditPetDialog by remember { mutableStateOf(false) }
     var tempUserName by remember { mutableStateOf(viewModel.userName) }
-    var tempPetName by remember { mutableStateOf(viewModel.petDisplayName) }
+    val petName by viewModel.petName.collectAsState()
+    var tempPetName by remember { mutableStateOf(petName) }
 
     Scaffold(
         topBar = {
@@ -149,14 +150,14 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
-                                text = viewModel.petDisplayName,
+                                text = petName,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium
                             )
                         }
                         IconButton(
                             onClick = { 
-                                tempPetName = viewModel.petDisplayName
+                                tempPetName = petName
                                 showEditPetDialog = true 
                             }
                         ) {
@@ -228,7 +229,7 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
             confirmButton = {
                 TextButton(
                     onClick = {
-                        viewModel.updatePetDisplayName(tempPetName)
+                        viewModel.updatePetName(tempPetName)
                         showEditPetDialog = false
                     }
                 ) {

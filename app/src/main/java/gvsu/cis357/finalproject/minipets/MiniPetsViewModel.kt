@@ -116,16 +116,13 @@ class MiniPetsViewModel(): ViewModel(){
     var userName by mutableStateOf("Pet Lover")
         private set
 
-    var petDisplayName by mutableStateOf("Fluffarita")
-        private set
-
     // Functions to update the data
     fun updateUserName(newName: String) {
         userName = newName
     }
 
-    fun updatePetDisplayName(newName: String) {
-        petDisplayName = newName
+    fun updatePetName(newName: String) {
+        petName.value = newName
     }
 
     //STORE LOGIC
