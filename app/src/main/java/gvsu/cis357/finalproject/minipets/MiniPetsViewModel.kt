@@ -45,8 +45,13 @@ class MiniPetsViewModel(): ViewModel(){
     private val _catState = MutableStateFlow(CatState.Idle)
     val catState: StateFlow<CatState> = _catState
     //private var _isBed = false
-    var isBed = false
-    var isCouch = false
+    var isBed by mutableStateOf(false)
+    var isCouch by mutableStateOf(false)
+    var isDesk by mutableStateOf(false)
+    var isTv by mutableStateOf(false)
+    var isMirror by mutableStateOf(false)
+    var isLamp by mutableStateOf(false)
+    var isArt by mutableStateOf(false)
 
 //    val floorArea = listOf(
 //        //WalkableArea(topLeft = 23.616816.dp, bottomLeft = 191.98996.dp, topRight = )
@@ -115,19 +120,22 @@ class MiniPetsViewModel(): ViewModel(){
         ShopItem(2, "Pet", "\uD83D\uDC39", "Mouse", 100),
     )
 
-    val furniture = listOf<ShopItem>(
+    var furniture = listOf<ShopItem>(
         ShopItem(3, "Furniture", "\uD83D\uDECF\uFE0F", "Bed", 75),
         ShopItem(4, "Furniture", "\uD83D\uDECB\uFE0F", "Couch", 50),
         ShopItem(5, "Furniture", "\uD83E\uDE9E", "Mirror", 50),
-        ShopItem(6, "Furniture", "\uD83E\uDE91", "Chair", 25),
+        ShopItem(6, "Furniture", "\uD83D\uDCBB", "Desk", 25),
+        ShopItem(7, "Furniture", "\uD83D\uDCFA", "TV", 25),
+        ShopItem(8, "Furniture", "\uD83D\uDCA1", "Lamp", 25),
+        ShopItem(9, "Furniture", "\uD83D\uDDBC\uFE0F", "Wall Art", 25),
         )
 
     val hats = listOf<ShopItem>(
-        ShopItem(7, "Hat", "⛑\uFE0F", "Red Helmet", 25),
-        ShopItem(8, "Hat", "\uD83C\uDF93", "Graduation Cap", 25),
-        ShopItem(9, "Hat", "\uD83C\uDFA9", "Top Hat", 25),
-        ShopItem(10, "Hat", "\uD83D\uDC52", "Sun Hat", 25),
-        ShopItem(11, "Hat", "\uD83E\uDDE2", "Blue Cap", 25),
+        ShopItem(10, "Hat", "⛑\uFE0F", "Red Helmet", 25),
+        ShopItem(11, "Hat", "\uD83C\uDF93", "Graduation Cap", 25),
+        ShopItem(12, "Hat", "\uD83C\uDFA9", "Top Hat", 25),
+        ShopItem(13, "Hat", "\uD83D\uDC52", "Sun Hat", 25),
+        ShopItem(14, "Hat", "\uD83E\uDDE2", "Blue Cap", 25),
 
         )
 
@@ -147,12 +155,44 @@ class MiniPetsViewModel(): ViewModel(){
         coins.value -= item.price
 
         when(item.id) {
-            3 -> isBed = true
-            4 -> isCouch = true
+            3 -> {
+                isBed = true
+                furniture = furniture.filter { it.id != 3 }
+                selectedCategoryItems.update { furniture }
+            }
+            4 -> {
+                isCouch = true
+                furniture = furniture.filter { it.id != 4 }
+                selectedCategoryItems.update { furniture }
+            }
+            5 -> {
+                isMirror = true
+                furniture = furniture.filter { it.id != 5 }
+                selectedCategoryItems.update { furniture }
+            }
+            6 -> {
+                isDesk = true
+                furniture = furniture.filter { it.id != 6 }
+                selectedCategoryItems.update { furniture }
+            }
+            7 -> {
+                isLamp = true
+                furniture = furniture.filter { it.id != 7 }
+                selectedCategoryItems.update { furniture }
+            }
+            8 -> {
+                isTv = true
+                furniture = furniture.filter { it.id != 8 }
+                selectedCategoryItems.update { furniture }
+            }
+            9 -> {
+                isArt = true
+                furniture = furniture.filter { it.id != 9 }
+                selectedCategoryItems.update { furniture }
+            }
         }
     }
 }
-
 
 data class ShopItem(
     val id: Int,

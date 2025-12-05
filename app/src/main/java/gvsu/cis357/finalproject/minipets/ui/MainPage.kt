@@ -152,18 +152,37 @@ fun MainPage(modifier: Modifier,
                         .size((128 * scale).dp, (128 * scale).dp)
                         .offset(x = 0.dp, y = 0.dp)
                 )
-                Couch()
-                Desk()
-                Tv()
-                Bed()
-                Mirror()
-                Lamp()
-                Art()
+//                Couch()
+//                Desk()
+//                Tv()
+//                Bed()
+//                Mirror()
+//                Lamp()
+//                Art()
 
-//                if (viewModel.isBed == true) {
-//                    Bed()
-//                }
-                //Cat(viewModel = viewModel)
+                if (viewModel.isBed) {
+                    Bed()
+                }
+                if (viewModel.isCouch) {
+                    Couch()
+                }
+                if (viewModel.isTv) {
+                    Tv()
+                }
+                if (viewModel.isDesk) {
+                    Desk()
+                }
+                if (viewModel.isMirror) {
+                    Mirror()
+                }
+                if (viewModel.isLamp) {
+                    Lamp()
+                }
+                if (viewModel.isArt) {
+                    Art()
+                }
+
+                Cat(viewModel = viewModel)
 
             }
             Spacer(modifier = Modifier.height(20.dp))
