@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,18 +32,32 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Profile") },
+                title = { 
+                    Text(
+                        "Profile",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    ) 
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.Default.ArrowBack, 
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = viewModel.MainColor
+                )
             )
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(viewModel.BackgroundColor)
                 .padding(paddingValues)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -53,7 +68,7 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                     .fillMaxWidth()
                     .padding(bottom = 24.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = viewModel.MainColor
                 )
             ) {
                 Column(
@@ -65,14 +80,14 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                         modifier = Modifier
                             .size(80.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary),
+                            .background(viewModel.BackgroundColor),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.Person,
                             contentDescription = "Profile Picture",
                             modifier = Modifier.size(40.dp),
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = Color.White
                         )
                     }
                     
@@ -80,8 +95,9 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                     
                     Text(
                         text = "Welcome!",
-                        fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
                     )
                 }
             }
@@ -90,15 +106,19 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = viewModel.MainColor
+                )
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
                         text = "User Information",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
                     
@@ -113,13 +133,15 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                         Column {
                             Text(
                                 text = "Username",
-                                fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                fontSize = viewModel.BodySize,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
                             )
                             Text(
                                 text = viewModel.userName,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
+                                fontSize = viewModel.BodySize,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
                             )
                         }
                         IconButton(
@@ -130,7 +152,8 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                         ) {
                             Icon(
                                 Icons.Default.Edit,
-                                contentDescription = "Edit Username"
+                                contentDescription = "Edit Username",
+                                tint = Color.White
                             )
                         }
                     }
@@ -146,13 +169,15 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                         Column {
                             Text(
                                 text = "Pet Display Name",
-                                fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                fontSize = viewModel.BodySize,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
                             )
                             Text(
                                 text = petName,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
+                                fontSize = viewModel.BodySize,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
                             )
                         }
                         IconButton(
@@ -163,7 +188,8 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                         ) {
                             Icon(
                                 Icons.Default.Edit,
-                                contentDescription = "Edit Pet Name"
+                                contentDescription = "Edit Pet Name",
+                                tint = Color.White
                             )
                         }
                     }
@@ -175,8 +201,9 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
             // Placeholder text for future features
             Text(
                 text = "More profile features coming soon!",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = viewModel.BodySize,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
