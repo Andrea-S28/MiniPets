@@ -94,7 +94,7 @@ fun ProfilePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack: () -> 
                     Spacer(modifier = Modifier.height(16.dp))
                     
                     Text(
-                        text = "Welcome!",
+                        text = "Welcome, ${viewModel.userName}!",
                         fontSize = viewModel.BodySize,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
