@@ -45,7 +45,7 @@ import gvsu.cis357.finalproject.minipets.ShopItem
 @Composable
 fun StorePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack:()-> Unit) {
     val petName by remember { mutableStateOf(viewModel.petName) }
-    val coins by remember { mutableStateOf(viewModel.coins) }
+    val coins by viewModel.coins.collectAsState()
 
     val categories = viewModel.categories
     val shopItems by viewModel.selectedCategoryItems.collectAsState()
@@ -92,7 +92,7 @@ fun StorePage(modifier: Modifier, viewModel: MiniPetsViewModel, onBack:()-> Unit
                 fontSize = viewModel.HeaderSize,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                text = "\uD83D\uDCB2 ${coins.collectAsState().value}"
+                text = "\uD83D\uDCB2 $coins"
             )
         }
         LazyRow(
@@ -161,12 +161,12 @@ fun ShopItemCard(item: ShopItem, viewModel: MiniPetsViewModel) {
             .width(130.dp)
             .background(viewModel.MainColor)
             .padding(10.dp)
-            .clickable { /* Handle click */ },
+            .clickable { viewModel.onStoreItemClick(item) },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(item.name, fontSize = viewModel.TitleSize, fontWeight = FontWeight.Bold, color = Color.White)
         Text(item.description, fontSize = viewModel.BodySize, fontWeight = FontWeight.Bold, color = Color.White)
         Text("\uD83D\uDCB2 ${item.price}", fontSize = viewModel.BodySize, fontWeight = FontWeight.Bold, color = Color.White)
     }
-
+    
 }

@@ -30,9 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -56,6 +58,7 @@ fun MainPage(modifier: Modifier,
     val HeaderSize = 30.sp
     val BodySize = 20.sp
     val petName by remember { mutableStateOf(viewModel.petName) }
+    val scale = 27
 
     Box(
         modifier = Modifier
@@ -109,35 +112,58 @@ fun MainPage(modifier: Modifier,
                 Button(onClick = onStore) { Text("Store") }
             }
 
+            val density = LocalDensity.current
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.Red.copy(alpha = 0.2f))
-                    .height(300.dp)
+                    .height(400.dp)
                     .pointerInput(Unit) {
+//                        detectTapGestures { offset ->
+//                            val xPx = offset.x   // already pixels
+//                            val yPx = offset.y   // already pixels
+//
+//                            println("Tapped at xPx=$xPx, yPx=$yPx")
                         detectTapGestures { offset ->
-                            val density = this@pointerInput
+                            // offset.x and offset.y are in pixels
                             val xDp = with(density) { offset.x.toDp() }
                             val yDp = with(density) { offset.y.toDp() }
-                            println("Tapped at xDp=$xDp, yDp=$yDp")
 
+                            println("Tapped at dp: x=$xDp, y=$yDp")
+
+//                    .onGloballyPositioned { layout ->
+//                        val widthDp = with(density) { layout.size.width.toDp() }
+//                        val heightDp = with(density) { layout.size.height.toDp() }
+//
+//                        println("Width = $widthDp, Height = $heightDp")
                         }
-
                     },
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.baseroom3),
-                    contentDescription = "Beginner pixel",
+                    painter = painterResource(id = R.drawable.room3),
+                    contentDescription = "Base room",
                     modifier = Modifier
                         .fillMaxSize()
-                        .graphicsLayer(
-                            scaleX = 1.5f,
-                            scaleY = 1.5f
-                        )
-                        .offset(x = 0.dp, y = 20.dp)
+//                        .graphicsLayer(
+//                            scaleX = 1.5f,
+//                            scaleY = 1.5f
+//                        )
+                        .size((128 * scale).dp, (128 * scale).dp)
+                        .offset(x = 0.dp, y = 0.dp)
                 )
-                Cat(viewModel = viewModel)
+                Couch()
+                Desk()
+                Tv()
+                Bed()
+                Mirror()
+                Lamp()
+                Art()
+
+//                if (viewModel.isBed == true) {
+//                    Bed()
+//                }
+                //Cat(viewModel = viewModel)
 
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -158,7 +184,7 @@ fun MainPage(modifier: Modifier,
                 Button(onClick = {/* Walk */ }) {
                     Text("Walk")
                 }
-                Button(onClick = {/* Screen Break */ }) {
+                Button(onClick = { /* nap */}) {
                     Text("Nap Time")
                 }
                 Button(onClick = {/* Play */ }) {
@@ -205,10 +231,93 @@ fun Cat(viewModel: MiniPetsViewModel) {
     val catY by animateDpAsState(targetValue = position.y)
 
     Image(
-        painter = painterResource(id = R.drawable.cat3),
+        painter = painterResource(id = R.drawable.cat4),
         contentDescription = "Pixel cat",
         modifier = Modifier
-            .size(64.dp)
+            .size(175.dp)
             .offset(x = catX, y = catY)
+    )
+}
+
+@Composable
+fun Bed() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.bed7),
+        contentDescription = "Empty bed",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = (-23).dp, y = 24.dp)
+    )
+}
+
+@Composable
+fun Couch() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.couch),
+        contentDescription = "Couch",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = 47.dp, y = 160.dp)
+    )
+}
+
+@Composable
+fun Tv() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.tv),
+        contentDescription = "Couch",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = 57.dp, y = 185.dp)
+    )
+}
+
+@Composable
+fun Desk() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.desk2),
+        contentDescription = "Desk",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = 93.dp, y = 69.dp)
+    )
+}
+@Composable
+fun Mirror() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.mirror),
+        contentDescription = "Couch",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = (-81).dp, y = 13.dp)
+    )
+}
+
+@Composable
+fun Lamp() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.lamp),
+        contentDescription = "Couch",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = 104.dp, y = 149.dp)
+    )
+}
+
+@Composable
+fun Art() {
+    val scale = 30
+    Image(
+        painter = painterResource(id = R.drawable.art),
+        contentDescription = "Couch",
+        modifier = Modifier
+            .size((128 * scale).dp, (128 * scale).dp)
+            .offset(x = 93.dp, y = 12.dp)
     )
 }
