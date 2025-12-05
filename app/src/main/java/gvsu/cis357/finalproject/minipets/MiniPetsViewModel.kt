@@ -9,10 +9,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.time.delay
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.random.Random
+import kotlin.random.nextInt
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+
+
 
 class MiniPetsViewModel(): ViewModel(){
     val BackgroundColor = Color(0xff208d6d)
@@ -26,6 +40,37 @@ class MiniPetsViewModel(): ViewModel(){
     var happiness by mutableStateOf(75)
     var energy by mutableStateOf(50)
     var points by mutableStateOf(120)
+    private val _catPosition = MutableStateFlow(CatPosition(0.dp, 0.dp))
+    val catPosition: StateFlow<CatPosition> = _catPosition
+    private val _catState = MutableStateFlow(CatState.Idle)
+    val catState: StateFlow<CatState> = _catState
+    //private var _isBed = false
+    var isBed = false
+    var isCouch = false
+
+//    val floorArea = listOf(
+//        //WalkableArea(topLeft = 23.616816.dp, bottomLeft = 191.98996.dp, topRight = )
+//    )
+
+    init {
+        wandering()
+    }
+
+    fun wandering(){
+        val minX = 0.dp
+        val maxX = 100.dp
+        val minY = 0.dp
+        val maxY = 100.dp
+        viewModelScope.launch {
+            while(true){
+                delay(5000)
+                val newX = Random.nextInt(minX.value.toInt(), maxX.value.toInt()).dp
+                val newY = Random.nextInt(minY.value.toInt(), maxY.value.toInt()).dp
+
+                _catPosition.value = CatPosition(newX, newY)
+            }
+        }
+    }
 
     fun walk(){
         happiness = (happiness +10).coerceAtMost(100)
@@ -33,9 +78,8 @@ class MiniPetsViewModel(): ViewModel(){
         points += 5
     }
 
-    fun screenBreak() {
-        energy = (energy + 10).coerceAtMost(100)
-        points += 5
+    fun nap() {
+
     }
 
     fun play() {
@@ -66,24 +110,24 @@ class MiniPetsViewModel(): ViewModel(){
     val categories = listOf("Furniture", "Hats", "Pets")
 
     val pets = listOf<ShopItem>(
-        ShopItem(0, "Pet", "\uD83D\uDC36", "Doggo", "100"),
-        ShopItem(1, "Pet", "\uD83D\uDC30", "Bunny", "100"),
-        ShopItem(2, "Pet", "\uD83D\uDC39", "Mouse", "100"),
+        ShopItem(0, "Pet", "\uD83D\uDC36", "Doggo", 100),
+        ShopItem(1, "Pet", "\uD83D\uDC30", "Bunny", 100),
+        ShopItem(2, "Pet", "\uD83D\uDC39", "Mouse", 100),
     )
 
     val furniture = listOf<ShopItem>(
-        ShopItem(3, "Furniture", "\uD83D\uDECF\uFE0F", "Bed", "75"),
-        ShopItem(4, "Furniture", "\uD83D\uDECB\uFE0F", "Couch", "50"),
-        ShopItem(5, "Furniture", "\uD83E\uDE9E", "Mirror", "50"),
-        ShopItem(6, "Furniture", "\uD83E\uDE91", "Chair", "25"),
+        ShopItem(3, "Furniture", "\uD83D\uDECF\uFE0F", "Bed", 75),
+        ShopItem(4, "Furniture", "\uD83D\uDECB\uFE0F", "Couch", 50),
+        ShopItem(5, "Furniture", "\uD83E\uDE9E", "Mirror", 50),
+        ShopItem(6, "Furniture", "\uD83E\uDE91", "Chair", 25),
         )
 
     val hats = listOf<ShopItem>(
-        ShopItem(7, "Hat", "⛑\uFE0F", "Red Helmet", "25"),
-        ShopItem(8, "Hat", "\uD83C\uDF93", "Graduation Cap", "25"),
-        ShopItem(9, "Hat", "\uD83C\uDFA9", "Top Hat", "25"),
-        ShopItem(10, "Hat", "\uD83D\uDC52", "Sun Hat", "25"),
-        ShopItem(11, "Hat", "\uD83E\uDDE2", "Blue Cap", "25"),
+        ShopItem(7, "Hat", "⛑\uFE0F", "Red Helmet", 25),
+        ShopItem(8, "Hat", "\uD83C\uDF93", "Graduation Cap", 25),
+        ShopItem(9, "Hat", "\uD83C\uDFA9", "Top Hat", 25),
+        ShopItem(10, "Hat", "\uD83D\uDC52", "Sun Hat", 25),
+        ShopItem(11, "Hat", "\uD83E\uDDE2", "Blue Cap", 25),
 
         )
 
@@ -97,6 +141,16 @@ class MiniPetsViewModel(): ViewModel(){
             "Pets" -> selectedCategoryItems.update { pets }
         }
     }
+
+    fun onStoreItemClick(item: ShopItem) {
+        if (coins.value < item.price) return
+        coins.value -= item.price
+
+        when(item.id) {
+            3 -> isBed = true
+            4 -> isCouch = true
+        }
+    }
 }
 
 
@@ -105,5 +159,8 @@ data class ShopItem(
     val itemType: String,
     val name: String,
     val description: String,
-    val price: String
+    val price: Int
 )
+data class CatPosition(val x: Dp, val y: Dp)
+enum class CatState {Idle, Sleeping}
+data class WalkableArea(val topLeft: Dp, val bottomLeft: Dp, val topRight: Dp, val bottomRight: Dp)
