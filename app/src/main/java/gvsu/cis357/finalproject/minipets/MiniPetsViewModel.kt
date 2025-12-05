@@ -53,6 +53,8 @@ class MiniPetsViewModel(): ViewModel(){
     var isLamp by mutableStateOf(false)
     var isArt by mutableStateOf(false)
 
+    var message by mutableStateOf("")
+
 //    val floorArea = listOf(
 //        //WalkableArea(topLeft = 23.616816.dp, bottomLeft = 191.98996.dp, topRight = )
 //    )
@@ -81,16 +83,33 @@ class MiniPetsViewModel(): ViewModel(){
         happiness = (happiness +10).coerceAtMost(100)
         energy = (energy - 5).coerceAtLeast(0)
         points += 5
+        coins.value += 15
+        message = "Lets go for a walk...+15 coins"
+        viewModelScope.launch {
+            delay(1300L)
+            message = ""
+        }
     }
 
     fun nap() {
-
+        coins.value += 2
+        message = "Zzz...+5 coins"
+        viewModelScope.launch {
+            delay(1300L)
+            message = ""
+        }
     }
 
     fun play() {
         happiness = (happiness + 5).coerceAtMost(100)
         energy = (energy - 5).coerceAtLeast(0)
         points += 5
+        coins.value += 10
+        message = "Play Time \uD83E\uDD2A...+10 coins"
+        viewModelScope.launch {
+            delay(1300L)
+            message = ""
+        }
     }
 
     // USER PROFILE LOGIC
@@ -140,7 +159,6 @@ class MiniPetsViewModel(): ViewModel(){
         )
 
     val selectedCategoryItems = MutableStateFlow(furniture)
-
 
     fun selectShopCategory(category: String) {
         when (category) {

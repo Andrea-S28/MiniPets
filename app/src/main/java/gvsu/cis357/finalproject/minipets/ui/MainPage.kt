@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -107,9 +108,27 @@ fun MainPage(modifier: Modifier,
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Button(onClick = onInfo) { Text("Info") }
-                Button(onClick = onProfile) { Text("Profile") }
-                Button(onClick = onStore) { Text("Store") }
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = onInfo) {
+                    Text("Info",
+                    color = Color.White,
+                    fontSize = viewModel.BodySize,
+                    fontWeight = FontWeight.Bold) }
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = onProfile) {
+                    Text("Profile",
+                        color = Color.White,
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold) }
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = onStore) {
+                    Text("Store",
+                    color = Color.White,
+                    fontSize = viewModel.BodySize,
+                    fontWeight = FontWeight.Bold) }
             }
 
             val density = LocalDensity.current
@@ -119,23 +138,12 @@ fun MainPage(modifier: Modifier,
                     .background(Color.Red.copy(alpha = 0.2f))
                     .height(400.dp)
                     .pointerInput(Unit) {
-//                        detectTapGestures { offset ->
-//                            val xPx = offset.x   // already pixels
-//                            val yPx = offset.y   // already pixels
-//
-//                            println("Tapped at xPx=$xPx, yPx=$yPx")
                         detectTapGestures { offset ->
-                            // offset.x and offset.y are in pixels
                             val xDp = with(density) { offset.x.toDp() }
                             val yDp = with(density) { offset.y.toDp() }
 
                             println("Tapped at dp: x=$xDp, y=$yDp")
 
-//                    .onGloballyPositioned { layout ->
-//                        val widthDp = with(density) { layout.size.width.toDp() }
-//                        val heightDp = with(density) { layout.size.height.toDp() }
-//
-//                        println("Width = $widthDp, Height = $heightDp")
                         }
                     },
                 contentAlignment = Alignment.Center
@@ -145,20 +153,9 @@ fun MainPage(modifier: Modifier,
                     contentDescription = "Base room",
                     modifier = Modifier
                         .fillMaxSize()
-//                        .graphicsLayer(
-//                            scaleX = 1.5f,
-//                            scaleY = 1.5f
-//                        )
                         .size((128 * scale).dp, (128 * scale).dp)
                         .offset(x = 0.dp, y = 0.dp)
                 )
-//                Couch()
-//                Desk()
-//                Tv()
-//                Bed()
-//                Mirror()
-//                Lamp()
-//                Art()
 
                 if (viewModel.isBed) {
                     Bed()
@@ -185,29 +182,39 @@ fun MainPage(modifier: Modifier,
                 Cat(viewModel = viewModel)
 
             }
-            Spacer(modifier = Modifier.height(20.dp))
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Center
-//            ) {
-//                Text("Happiness: 75")
-//                Text("Energy: 50")
-//                Text("Coins: 120")
-//            }
+            Text(text = viewModel.message,
+                color = Color.White,
+                fontSize = viewModel.BodySize,
+                fontWeight = FontWeight.Bold
+                )
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Button(onClick = {/* Walk */ }) {
-                    Text("Walk")
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = {viewModel.walk()}) {
+                    Text("Walk",
+                        color = Color.White,
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold)
                 }
-                Button(onClick = { /* nap */}) {
-                    Text("Nap Time")
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = { viewModel.nap()}) {
+                    Text("Nap Time",
+                        color = Color.White,
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold)
                 }
-                Button(onClick = {/* Play */ }) {
-                    Text("Play")
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.MainColor),
+                    onClick = {viewModel.play()}) {
+                    Text("Play",
+                        color = Color.White,
+                        fontSize = viewModel.BodySize,
+                        fontWeight = FontWeight.Bold)
                 }
 
             }
@@ -286,11 +293,11 @@ fun Couch() {
 fun Tv() {
     val scale = 30
     Image(
-        painter = painterResource(id = R.drawable.tv),
+        painter = painterResource(id = R.drawable.lamp),
         contentDescription = "Couch",
         modifier = Modifier
             .size((128 * scale).dp, (128 * scale).dp)
-            .offset(x = 57.dp, y = 185.dp)
+            .offset(x = 104.dp, y = 149.dp)
     )
 }
 
@@ -321,11 +328,11 @@ fun Mirror() {
 fun Lamp() {
     val scale = 30
     Image(
-        painter = painterResource(id = R.drawable.lamp),
+        painter = painterResource(id = R.drawable.tv),
         contentDescription = "Couch",
         modifier = Modifier
             .size((128 * scale).dp, (128 * scale).dp)
-            .offset(x = 104.dp, y = 149.dp)
+            .offset(x = 57.dp, y = 185.dp)
     )
 }
 
