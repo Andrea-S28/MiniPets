@@ -135,7 +135,7 @@ fun MainPage(modifier: Modifier,
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Red.copy(alpha = 0.2f))
+                    .background(Color.Red.copy(alpha = 0.1f))
                     .height(400.dp)
                     .pointerInput(Unit) {
                         detectTapGestures { offset ->
