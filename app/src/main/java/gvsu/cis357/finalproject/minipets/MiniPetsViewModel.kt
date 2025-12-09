@@ -92,7 +92,7 @@ class MiniPetsViewModel(): ViewModel(){
     }
 
     fun nap() {
-        coins.value += 2
+        coins.value += 5
         message = "Zzz...+5 coins"
         viewModelScope.launch {
             delay(1300L)
